@@ -8,10 +8,11 @@
 #include <unistd.h>
 #include <sys/syscall.h>
 
-#define MAX_JOBS 20
-#define JOB_NAME_SIZE 20
+#include "scanner.h"
 
-char * prompt = "svsh";
+#define MAX_JOBS 20
+
+char *prompt = "svsh";
 
 int call() {
   char str[60];
@@ -40,6 +41,12 @@ int call() {
         printf("%s %d\n", jobs[i], i);
       }
     }
+    else if (strcmp(str, "cd") == 0) 
+      printf("Changing directories\n");
+    else if (strcmp(str, "run") == 0)
+      printf("Run program \n");
+    else if (strcmp(str, "assignto") == 0)
+      printf("assign output to a variable\n");
     else
         printf("%s : Not A Command\n", str);
     printf("%s > ", prompt);
@@ -52,8 +59,6 @@ int call() {
 
   return 0;
 }
-
-
 
 int main() {
   
