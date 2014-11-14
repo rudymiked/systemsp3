@@ -31,8 +31,11 @@ int call(int opr, char *arg1, char *arg2) {
       }
       case (CD): {
         k = chdir(arg1);
-        getwd(wd);
-        printf("%d : %s \n", k, wd);
+        if (!k) {
+          getwd(wd);
+        }
+        else 
+          printf("%s : Not a Directory\n", arg1);
         return 0;
       }
       case (RUN): {
@@ -51,7 +54,8 @@ int call(int opr, char *arg1, char *arg2) {
 }
 
 int printPrompt() {
-  prompt = "svsh";
+  if (prompt == NULL)
+    prompt = "svsh";
   printf("%s > ", prompt);
  
   yyparse();  
