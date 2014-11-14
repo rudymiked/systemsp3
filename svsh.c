@@ -7,7 +7,7 @@
 
 char *prompt;
 int call(int opr, char *arg1, char *arg2) {
-  char str[60];
+  char *wd;
   int i = 0;
   char *jobs[MAX_JOBS];
   
@@ -30,7 +30,8 @@ int call(int opr, char *arg1, char *arg2) {
       }
       case (CD): {
         chdir(arg1);
-        printf("%s \n", arg1);
+        getwd(wd);
+        printf("%s \n", wd);
         return 0;
       }
       case (RUN): {
