@@ -36,6 +36,7 @@ WORD [^><% \t\n\"]+
 		}
 
 {STRING}	{
+			printf("POE DEBUG: string\n");
 			yylval.string = strdup(yytext);
 			/* move string beginning beyond first quote */
 			yylval.string++;
@@ -45,8 +46,13 @@ WORD [^><% \t\n\"]+
 		}
 
 {WORD}		{
+			printf("POE DEBUG: word\n");
 			yylval.word = strdup(yytext);
 			return WORD;
+		}
+[ \t\n]+	;	/*ignore whitespace*/
+.		{
+			printf("Unknown Character\n");
 		}
 
 %%
