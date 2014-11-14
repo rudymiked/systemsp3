@@ -30,7 +30,6 @@ int call(int opr, char *arg1, char *arg2) {
       }
       case (CD): {
         chdir(arg1);
-        getwd(arg1);
         printf("%s \n", arg1);
         break;
       }
