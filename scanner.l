@@ -20,6 +20,7 @@ WORD [^><% \t\n\"]+
 
 %%
 
+"\n" 		{	return NEWLINE;	}
 {DEFPROMPT}	{	return DEFPROMPT;	}
 {CD}		{	printf("POE DEBUG: returning CD\n");
 			return CD;	}
@@ -50,7 +51,7 @@ WORD [^><% \t\n\"]+
 			yylval.word = strdup(yytext);
 			return WORD;
 		}
-[ \t\n]+	;	/*ignore whitespace*/
+[ \t]+	;	/*ignore whitespace*/
 .		{
 			printf("Unknown Character\n");
 		}

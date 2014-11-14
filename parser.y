@@ -47,8 +47,8 @@ lines:
 	      ;
 
 line:
-		stmt NEWLINE		{ printPrompt(); }
-	      | NEWLINE			{ printPrompt(); }
+		stmt NEWLINE		{ call(NEWLINE, NULL, NULL); }
+	      | NEWLINE			{ call(NEWLINE, NULL, NULL); }
 	      | error NEWLINE		{ 
 						yyerrok;
 						yyclearin;
