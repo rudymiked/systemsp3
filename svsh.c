@@ -37,7 +37,7 @@ int call(int opr, char *arg1, char *arg2) {
       case (CD): {
         chdir(arg1);
         getwd(arg1);
-        printf("wd: %s \n", wd);
+        printf("%s \n", arg1);
         break;
       }
       case (RUN): {
@@ -48,7 +48,7 @@ int call(int opr, char *arg1, char *arg2) {
         printf("assign output to a variable\n");
         break;
       }
-      case (BYE) {
+      case (BYE): {
         exit(0); 
         break;
       }
