@@ -96,11 +96,12 @@ int call(int opr, char *arg1, char *arg2) {
 }
 
 int main() {
-   
-  yyparse();  
+  
   printf("CS Shared Variable Shell\n");
   printf("%s > ", prompt);
-
+ 
+  yyparse();  
+  
 
   return 0;
 
