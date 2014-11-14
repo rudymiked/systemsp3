@@ -47,55 +47,14 @@ int call(int opr, char *arg1, char *arg2) {
       default:
         printf("'%s' : Not A Command\n", str);
     }
-/*
-  while (strcmp(str, "bye") != 0) {
-    if (strcmp(str, "pwd") == 0)
-      printf("Present Working Directory\n"); 
-    else if (str[0] == '#') {
-      printf("%s\n", str);
-    }
-    else if (strcmp(str, "defprompt") == 0) {
-      prompt = "new_svsh";
-    }
-    else if (strcmp(str, "listjobs") == 0) {
-      int j, n;
-      n = sizeof(jobs)/sizeof(jobs[0]);
-      for(j = 0; j < n; j++){
-        printf("%s %d\n", jobs[i], i);
-      }
-    }
-    else if (strcmp(str, "cd") == 0) { 
-      getwd(wd);
-      printf("wd: %s \n", wd);
-      chdir("/home/");
-      getwd(wd);
-      printf("wd: %s \n", wd);
-    }
-    else if (strcmp(str, "run") == 0) {
-      printf("Run program \n");
-    }
-    else if (strcmp(str, "assignto") == 0) {
-      printf("assign output to a variable\n");
-    }
-    else
-        printf("'%s' : Not A Command\n", str);
-    printf("%s > ", prompt);
-    fgets(str, sizeof(str), stdin);
-    
-    str[strlen(str) - 1 ] = '\0';
-    
-  }
-*/
   return 0;
 }
 
 int main() {
   prompt = "svsh";
-  printf("CS Shared Variable Shell\n");
   printf("%s > ", prompt);
  
   yyparse();  
-  
 
   return 0;
 
