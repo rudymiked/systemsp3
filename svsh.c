@@ -6,14 +6,10 @@
 //#include "y.tab.h"
 
 
-char *prompt;
-
 int call(int opr, char *arg1, char *arg2) {
   char str[60];
   int i = 0;
   char *jobs[MAX_JOBS];
-  prompt = "svsh";
-
   
     switch(opr) {
      /* case (METACHAR): {
@@ -96,7 +92,8 @@ int call(int opr, char *arg1, char *arg2) {
 }
 
 int main() {
-  
+  char *prompt; 
+  prompt = "svsh";
   printf("CS Shared Variable Shell\n");
   printf("%s > ", prompt);
  
