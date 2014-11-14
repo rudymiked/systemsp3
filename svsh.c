@@ -44,7 +44,7 @@ int call(int opr, char *arg1, char *arg2) {
         return 0;
       }
       default: 
-        return 0;
+        printPrompt();
            
     }
   return 0;
