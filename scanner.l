@@ -21,7 +21,8 @@ WORD [^><% \t\n\"]+
 %%
 
 {DEFPROMPT}	{	return DEFPROMPT;	}
-{CD}		{	return CD;	}
+{CD}		{	printf("POE DEBUG: returning CD\n");
+			return CD;	}
 {LISTJOBS}	{	return LISTJOBS;	}
 {BYE}		{	return BYE;	}
 {RUN}		{	return RUN;	}
@@ -48,14 +49,7 @@ WORD [^><% \t\n\"]+
 			return WORD;
 		}
 
-.		{
-			yyerror("Unknown character");
-		}
 %%
 int yywrap(void) {
 	return 1;
-}
-int main(void){
-	yylex();
-	return 0;
 }
