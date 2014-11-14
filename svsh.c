@@ -9,6 +9,7 @@ char *prompt;
 int call(int opr, char *arg1, char *arg2) {
   char *wd;
   int i = 0;
+  int k = 0;
   char *jobs[MAX_JOBS];
   
     switch(opr) {
@@ -29,9 +30,9 @@ int call(int opr, char *arg1, char *arg2) {
         return 0;
       }
       case (CD): {
-        chdir(arg1);
+        k = chdir(arg1);
         getwd(wd);
-        printf("%s \n", wd);
+        printf("%d : %s \n", k, wd);
         return 0;
       }
       case (RUN): {
