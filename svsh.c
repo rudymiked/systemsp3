@@ -8,7 +8,6 @@
 
 char *prompt;
 
-//int call(int opr, int nops, ..) {
 int call(int opr, ...) {
   char str[60];
   int i = 0;
@@ -18,10 +17,6 @@ int call(int opr, ...) {
 
   printf("CS Shared Variable Shell\n");
   printf("%s > ", prompt);
-  //scanf("%s", str);
-  //printf("newstr: %s\n", str);
-  //fgets(str, sizeof(str), stdin);
-  //str[strlen(str) - 1 ] = '\0';
 
   while (opr != BYE) {
     switch(opr) {
@@ -63,6 +58,7 @@ int call(int opr, ...) {
     fgets(str, sizeof(str), stdin);
     
     str[strlen(str) - 1 ] = '\0';
+    }
   }
 /*
   while (strcmp(str, "bye") != 0) {
