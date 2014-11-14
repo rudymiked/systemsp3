@@ -6,17 +6,19 @@
 //#include "y.tab.h"
 
 char *prompt;
+
 int call(int opr, char *arg1, char *arg2) {
+
   char *wd;
   int i = 0;
   int k = 0;
   char *jobs[MAX_JOBS];
   
     switch(opr) {
-     /* case (METACHAR): {
-        printf("%s\n", str);
+      case (METACHAR): {
+        printf("%s\n", arg1);
         break;
-      }*/
+      }
       case (DEFPROMPT): {
         prompt = arg1;
         return 0;
@@ -31,9 +33,8 @@ int call(int opr, char *arg1, char *arg2) {
       }
       case (CD): {
         k = chdir(arg1);
-        if (!k) {
+        if (!k) 
           getwd(wd);
-        }
         else 
           printf("%s : Not a Directory\n", arg1);
         return 0;
@@ -50,17 +51,21 @@ int call(int opr, char *arg1, char *arg2) {
         printPrompt();
            
     }
+
   return 0;
+
 }
 
 int printPrompt() {
-  if (prompt == NULL)
+
+  if (!prompt)
     prompt = "svsh";
   printf("%s > ", prompt);
  
   yyparse();  
 
   return 0;
+
 }
 
 int main() {
