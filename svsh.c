@@ -8,24 +8,22 @@
 
 char *prompt;
 
-int call(int opr, ...) {
+int call(int opr, char *arg1, char *arg2) {
   char str[60];
   int i = 0;
   char *jobs[MAX_JOBS];
-  char wd[100];
   prompt = "svsh";
 
   printf("CS Shared Variable Shell\n");
   printf("%s > ", prompt);
 
-  while (opr != BYE) {
     switch(opr) {
      /* case (METACHAR): {
         printf("%s\n", str);
         break;
       }*/
       case (DEFPROMPT): {
-        prompt = "new_svsh";
+        prompt = arg1;
         break;
       }
       case (LISTJOBS): {
@@ -37,10 +35,8 @@ int call(int opr, ...) {
         break;
       }
       case (CD): {
-        getwd(wd);
-        printf("wd: %s \n", wd);
-        chdir("/home/");
-        getwd(wd);
+        chdir(arg1);
+        getwd(arg1);
         printf("wd: %s \n", wd);
         break;
       }
@@ -52,14 +48,13 @@ int call(int opr, ...) {
         printf("assign output to a variable\n");
         break;
       }
+      case (BYE) {
+        exit(0); 
+        break;
+      }
       default:
         printf("'%s' : Not A Command\n", str);
-    printf("%s > ", prompt);
-    fgets(str, sizeof(str), stdin);
-    
-    str[strlen(str) - 1 ] = '\0';
     }
-  }
 /*
   while (strcmp(str, "bye") != 0) {
     if (strcmp(str, "pwd") == 0)
