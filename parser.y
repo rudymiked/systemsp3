@@ -8,7 +8,7 @@
 #include "svsh.h"
 #include "svsh.c"
 
-extern int call(int opr,...);
+extern int call(int opr, char * arg1, char * arg2);
 int yylex(void);
 
 %}
@@ -29,7 +29,7 @@ int yylex(void);
 %token PATH
 %token <string> STRING
 %token <var> VARIABLE
-%token <mchar> METACHARACTER
+%token <mchar> METACHAR
 %token <word> WORD
 
 %type <string> stmt
@@ -41,8 +41,10 @@ stmt:
 	| PATH STRING 				{	call(PATH, $2, NULL);		}
 	| ASSIGNTO WORD STRING 			{	call(ASSIGNTO, $3, $2); 	}
 	| LISTJOBS				{	call(LISTJOBS, NULL, NULL);	}
-	| CD WORD				{	call(CD, $2, NULL);		}
-	| BYE					{	call(BYE, NULL, NULL);		}
+	| CD WORD				{	printf("POE DEBUG: in Parser \n");
+call(CD, $2, NULL);		}
+	| BYE					{	printf("POE DEBUG: in BYE \n");
+							exit(0);		}
 	;
 %%
 
