@@ -31,7 +31,7 @@ int call(int opr, char *arg1, char *arg2) {
       case (CD): {
         chdir(arg1);
         printf("%s \n", arg1);
-        main();
+        return 0;
       }
       case (RUN): {
         printf("Run program \n");
@@ -40,9 +40,6 @@ int call(int opr, char *arg1, char *arg2) {
       case (ASSIGNTO): {
         printf("assign output to a variable\n");
         return 0;
-      }
-      case (BYE): {
-        break;
       }
       default:
         printf("'%s' : Not A Command\n", str);
