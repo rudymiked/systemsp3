@@ -14,7 +14,7 @@ BIN = svsh
 
 
 
-$(BIN_NAME):
+$(BIN_NAME): clean
 	$(YACC) parser.y
 	$(FLEX) scanner.l
 	$(CC) -o $(BIN_NAME) y.tab.c lex.yy.c $(OPTIONS)
