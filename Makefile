@@ -1,6 +1,8 @@
 #Makefile
 #CS 485 Project 3
 
+YACC = bison -d -b y
+LEX = flex
 CC=gcc
 CFLAGS=-Wall
 
