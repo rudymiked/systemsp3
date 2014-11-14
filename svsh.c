@@ -14,9 +14,7 @@ int call(int opr, char *arg1, char *arg2) {
   char *jobs[MAX_JOBS];
   prompt = "svsh";
 
-  printf("CS Shared Variable Shell\n");
-  printf("%s > ", prompt);
-
+  
     switch(opr) {
      /* case (METACHAR): {
         printf("%s\n", str);
@@ -96,12 +94,15 @@ int call(int opr, char *arg1, char *arg2) {
 */
   return 0;
 }
-/*
+
 int main() {
    
-  call();  
+  yyparse();  
+  printf("CS Shared Variable Shell\n");
+  printf("%s > ", prompt);
 
-return 0;
+
+  return 0;
 
 }
-*/
+
