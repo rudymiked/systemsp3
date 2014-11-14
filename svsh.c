@@ -42,8 +42,9 @@ int call(int opr, char *arg1, char *arg2) {
         printf("assign output to a variable\n");
         return 0;
       }
-      default:
-        printf("'%s' : Not A Command\n", str);
+      default: 
+        return 0;
+           
     }
   return 0;
 }
