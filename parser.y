@@ -19,6 +19,7 @@ int yylex(void);
 	char *mchar;
 };
 
+%token NEWLINE
 %token DEFPROMPT
 %token CD
 %token ASSIGNTO
@@ -35,6 +36,25 @@ int yylex(void);
 %type <string> stmt
 
 %%
+session:
+	   	lines			{ /* Do nothing */ }	
+	      | /* NULL */		{ /* Do nothing */ }
+	      ;
+
+lines:
+		line			{ /* Do nothing */ }
+	      |	lines line		{ /* Do nothing */ }
+	      ;
+
+line:
+		stmt NEWLINE		{ printPrompt(); }
+	      | NEWLINE			{ printPrompt(); }
+	      | error NEWLINE		{ 
+						yyerrok;
+						yyclearin;
+						printPrompt();
+					}
+	      ;
 
 stmt: 
 	DEFPROMPT STRING	 		{	call(DEFPROMPT, $2, NULL);	}
