@@ -42,7 +42,7 @@ int call(int opr, char *arg1, char *arg2) {
         return 0;
       }
       case (BYE): {
-        return 1;
+        break;
       }
       default:
         printf("'%s' : Not A Command\n", str);
