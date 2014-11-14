@@ -47,12 +47,19 @@ int call(int opr, char *arg1, char *arg2) {
   return 0;
 }
 
-int main() {
+int printPrompt() {
   prompt = "svsh";
   printf("%s > ", prompt);
  
   yyparse();  
 
+  return 0;
+}
+
+int main() {
+  
+  printPrompt();
+  
   return 0;
 
 }
