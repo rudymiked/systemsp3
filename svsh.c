@@ -31,7 +31,7 @@ int call(int opr, char *arg1, char *arg2) {
       case (CD): {
         chdir(arg1);
         printf("%s \n", arg1);
-        yyparse();
+        main();
       }
       case (RUN): {
         printf("Run program \n");
