@@ -6,7 +6,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/syscall.h>
-#include "scanner.h"
+#include "y.tab.h"
 
 #define MAX_JOBS 20
 
@@ -16,5 +16,4 @@
 #define RIGHT	0x4D
 
 
-
-
+extern int call(int opr, char *arg1, char *arg2);
