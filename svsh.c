@@ -25,32 +25,39 @@ int call(int opr, ...) {
 
   while (opr != BYE) {
     switch(opr) {
-      case (METACHAR)
+     /* case (METACHAR): {
         printf("%s\n", str);
-      case (DEFPROMPT) {
+        break;
+      }*/
+      case (DEFPROMPT): {
         prompt = "new_svsh";
+        break;
       }
-      case (LISTJOBS) {
+      case (LISTJOBS): {
         int j, n;
         n = sizeof(jobs)/sizeof(jobs[0]);
         for(j = 0; j < n; j++){
           printf("%s %d\n", jobs[i], i);
         }
+        break;
       }
-      case (CD) {
+      case (CD): {
         getwd(wd);
         printf("wd: %s \n", wd);
         chdir("/home/");
         getwd(wd);
         printf("wd: %s \n", wd);
+        break;
       }
-      case (RUN) {
+      case (RUN): {
         printf("Run program \n");
+        break;
       }
-      case (ASSIGNTO) {
+      case (ASSIGNTO): {
         printf("assign output to a variable\n");
+        break;
       }
-      default
+      default:
         printf("'%s' : Not A Command\n", str);
     printf("%s > ", prompt);
     fgets(str, sizeof(str), stdin);
