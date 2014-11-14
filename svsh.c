@@ -18,7 +18,7 @@ int call(int opr, char *arg1, char *arg2) {
       }*/
       case (DEFPROMPT): {
         prompt = arg1;
-        break;
+        return 0;
       }
       case (LISTJOBS): {
         int j, n;
@@ -26,24 +26,23 @@ int call(int opr, char *arg1, char *arg2) {
         for(j = 0; j < n; j++){
           printf("%s %d\n", jobs[i], i);
         }
-        break;
+        return 0;
       }
       case (CD): {
         chdir(arg1);
         printf("%s \n", arg1);
-        break;
+        return 0;
       }
       case (RUN): {
         printf("Run program \n");
-        break;
+        return 0;
       }
       case (ASSIGNTO): {
         printf("assign output to a variable\n");
-        break;
+        return 0;
       }
       case (BYE): {
-        exit(0); 
-        break;
+        return 1;
       }
       default:
         printf("'%s' : Not A Command\n", str);
