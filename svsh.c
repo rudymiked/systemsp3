@@ -3,9 +3,13 @@
 // CS 485
 
 #include "svsh.h"
+#include "sCalls.c"
 
 char *prompt;
 
+extern int SaveVariable(char *varname, char *vardef);
+extern int GetVariable(char *varname, char *vardef, int deflen);
+extern int NextVariable(char *prevname, char *varname, namelen, char *vardef, int deflen);
 int call(int opr, char *arg1, char *arg2, char *arg3, char *arg4) {
 
   char *wd[PATH_MAX];
