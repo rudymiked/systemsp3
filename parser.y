@@ -58,11 +58,12 @@ line:
 
 stmt: 
 	DEFPROMPT STRING	 		{	call(DEFPROMPT, $2, NULL);	}
-	| PATH STRING 				{	call(PATH, $2, NULL);		}
+	| METACHAR				{	/* ignore comments */		}
+	| PATH METACHAR STRING			{	call(PATH, $2, NULL);		}
 	| ASSIGNTO WORD STRING 			{	call(ASSIGNTO, $3, $2); 	}
 	| LISTJOBS				{	call(LISTJOBS, NULL, NULL);	}
 	| CD WORD				{	printf("POE DEBUG: CD in Parser \n");
-call(CD, $2, NULL);		}
+							call(CD, $2, NULL);		}
 	| BYE					{	printf("POE DEBUG: in BYE \n");
 							exit(0);		}
 	;

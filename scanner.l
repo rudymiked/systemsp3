@@ -17,10 +17,13 @@ ASSIGNTO [aA][sS][sS][iI][gG][nN][tT][oO]
 BG [<bg>]
 PATH ["$"][a-zA-Z0-9]+
 WORD [^><% \t\n\"]+
+NEWLINE "\n"
+METACHAR "#"|"="
 
 %%
 
-"\n" 		{	return NEWLINE;	}
+{METACHAR}	{	return METACHAR;	}
+{NEWLINE}	{ 	return NEWLINE;		}
 {DEFPROMPT}	{	return DEFPROMPT;	}
 {CD}		{       return CD;	}
 {LISTJOBS}	{	return LISTJOBS;	}
