@@ -10,6 +10,7 @@ char *prompt;
 int call(int opr, char *arg1, char *arg2) {
 
   char *wd;
+  char *s;
   int i = 0;
   int k = 0;
   char *jobs[MAX_JOBS];
@@ -33,10 +34,13 @@ int call(int opr, char *arg1, char *arg2) {
       }
       case (CD): {
         k = chdir(arg1);
-        if (!k) 
+        if (!k)  {
           getwd(wd);
+          printf("pwd: %s\n", wd);
+        }
         else 
           printf("%s : Not a Directory\n", arg1);
+
         return 0;
       }
       case (RUN): {
@@ -44,8 +48,12 @@ int call(int opr, char *arg1, char *arg2) {
         return 0;
       }
       case (ASSIGNTO): {
-        printf("assign output to a variable\n");
+        s = arg1;
+        printf(" %s, assign output to a variable\n", s);
         return 0;
+      }
+      case (NEWLINE): {
+        printPrompt();
       }
       default: 
         printPrompt();
