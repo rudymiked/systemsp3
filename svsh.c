@@ -3,11 +3,10 @@
 // CS 485
 
 #include "svsh.h"
-//#include "y.tab.h"
 
 char *prompt;
 
-int call(int opr, char *arg1, char *arg2) {
+int call(int opr, char *arg1, char *arg2, char *arg3, char *arg4) {
 
   char *wd[PATH_MAX];
   char *s;
