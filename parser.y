@@ -66,6 +66,7 @@ stmt:
 							call(CD, $2, NULL);		}
 	| BYE					{	printf("POE DEBUG: in BYE \n");
 							exit(0);		}
+	| WORD					{	printf("Invalid input\n");	}
 	;
 %%
 
