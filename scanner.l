@@ -22,13 +22,13 @@ WORD [^><% \t\n\"]+
 
 "\n" 		{	return NEWLINE;	}
 {DEFPROMPT}	{	return DEFPROMPT;	}
-{CD}		{	printf("POE DEBUG: returning CD\n");
-			return CD;	}
+{CD}		{       return CD;	}
 {LISTJOBS}	{	return LISTJOBS;	}
 {BYE}		{	return BYE;	}
 {RUN}		{	return RUN;	}
 {BG}		{	return BG;	}
 {PATH}		{	return PATH;	}
+{ASSIGNTO}	{	return ASSIGNTO;	}
 
 
 {VARIABLE}	{
@@ -48,6 +48,7 @@ WORD [^><% \t\n\"]+
 
 {WORD}		{
 			printf("POE DEBUG: word\n");
+                        printf(" %s \n", yytext);
 			yylval.word = strdup(yytext);
 			return WORD;
 		}
