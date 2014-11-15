@@ -9,6 +9,7 @@
 #include "y.tab.h"
 
 #define MAX_JOBS 20
+#define PATH_MAX 20
 
 #define UP	0x48
 #define DOWN	0x50

@@ -9,7 +9,7 @@ char *prompt;
 
 int call(int opr, char *arg1, char *arg2) {
 
-  char *wd;
+  char *wd[PATH_MAX];
   char *s;
   int i = 0;
   int k = 0;
