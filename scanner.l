@@ -7,7 +7,7 @@
 %}
 
 STRING ("\""("\\\""|[^"\n])*"\"")|("\'"("\\\'"|[^'\n])*"\'")
-VARIABLE ["$"][A-Za-z0-9]*
+VARIABLE ["$"][A-Za-z0-9]+
 DEFPROMPT [dD][eE][fF][pP][rR][oO][mM][pP][tT]
 CD [cC][dD]
 LISTJOBS [lL][iI][sS][tT][jJ][oO][bB][sS]
@@ -25,17 +25,17 @@ METACHAR "#"|"="
 {METACHAR}	{	return METACHAR;	}
 {NEWLINE}	{ 	return NEWLINE;		}
 {DEFPROMPT}	{	return DEFPROMPT;	}
-{CD}		{       return CD;	}
+{CD}		{       return CD;		}
 {LISTJOBS}	{	return LISTJOBS;	}
-{BYE}		{	return BYE;	}
-{RUN}		{	return RUN;	}
-{BG}		{	return BG;	}
-{PATH}		{	return PATH;	}
+{BYE}		{	return BYE;		}
+{RUN}		{	return RUN;		}
+{BG}		{	return BG;		}
+{PATH}		{	return PATH;		}
 {ASSIGNTO}	{	return ASSIGNTO;	}
 
 
 {VARIABLE}	{
-			yylval.var = *yytext - 'A';
+			yylval.var = strdup(yytext);
 			return VARIABLE;
 		}
 

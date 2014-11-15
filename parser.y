@@ -62,6 +62,7 @@ stmt:
 	| PATH METACHAR STRING			{	call(PATH, $2, NULL);		}
 	| ASSIGNTO WORD STRING 			{	call(ASSIGNTO, $3, $2); 	}
 	| LISTJOBS				{	call(LISTJOBS, NULL, NULL);	}
+        | RUN WORD VARIABLE                     {	call(RUN, $3, $2);		}
 	| CD WORD				{	printf("POE DEBUG: CD in Parser \n");
 							call(CD, $2, NULL);		}
 	| BYE					{	printf("POE DEBUG: in BYE \n");
