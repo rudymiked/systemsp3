@@ -7,7 +7,7 @@
 %}
 
 STRING ("\""("\\\""|[^"\n])*"\"")|("\'"("\\\'"|[^'\n])*"\'")
-VARIABLE ["$"][A-Za-z0-9]+
+VARIABLE ["$"][a-zA-z0-9]+
 DEFPROMPT [dD][eE][fF][pP][rR][oO][mM][pP][tT]
 CD [cC][dD]
 LISTJOBS [lL][iI][sS][tT][jJ][oO][bB][sS]
@@ -15,7 +15,6 @@ BYE [bB][yY][eE]
 RUN [rR][uU][nN]
 ASSIGNTO [aA][sS][sS][iI][gG][nN][tT][oO]
 BG [<bg>]
-PATH ["$"][a-zA-Z0-9]+
 WORD [^><% \t\n\"]+
 NEWLINE "\n"
 METACHAR "#"|"="
@@ -30,11 +29,11 @@ METACHAR "#"|"="
 {BYE}		{	return BYE;		}
 {RUN}		{	return RUN;		}
 {BG}		{	return BG;		}
-{PATH}		{	return PATH;		}
 {ASSIGNTO}	{	return ASSIGNTO;	}
 
 
 {VARIABLE}	{
+			printf("POE DEBUG: variable\n");
 			yylval.var = strdup(yytext);
 			return VARIABLE;
 		}

@@ -27,7 +27,6 @@ int yylex(void);
 %token BYE
 %token BG
 %token RUN
-%token PATH
 %token <string> STRING
 %token <var> VARIABLE
 %token <mchar> METACHAR
@@ -59,10 +58,11 @@ line:
 stmt: 
 	DEFPROMPT STRING	 		{	call(DEFPROMPT, $2, NULL);	}
 	| METACHAR WORD				{	call(METACHAR, $2, NULL);	}
-	| PATH METACHAR STRING			{	call(PATH, $2, NULL);		}
+	| VARIABLE METACHAR STRING		{	/*call(PATH, $2, NULL);*/		}
 	| ASSIGNTO WORD STRING 			{	call(ASSIGNTO, $3, $2); 	}
 	| LISTJOBS				{	call(LISTJOBS, NULL, NULL);	}
-        | RUN WORD VARIABLE                     {	call(RUN, $3, $2);		}
+        | RUN WORD VARIABLE                     {	printf("POE DEBUG: RUN in parser \n");
+							call(RUN, $3, $2);		}
 	| CD WORD				{	printf("POE DEBUG: CD in Parser \n");
 							call(CD, $2, NULL);		}
 	| BYE					{	printf("POE DEBUG: in BYE \n");
