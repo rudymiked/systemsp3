@@ -58,7 +58,7 @@ line:
 
 stmt: 
 	DEFPROMPT STRING	 		{	call(DEFPROMPT, $2, NULL);	}
-	| METACHAR				{	/* ignore comments */		}
+	| METACHAR WORD				{	call(METACHAR, $2, NULL);	}
 	| PATH METACHAR STRING			{	call(PATH, $2, NULL);		}
 	| ASSIGNTO WORD STRING 			{	call(ASSIGNTO, $3, $2); 	}
 	| LISTJOBS				{	call(LISTJOBS, NULL, NULL);	}

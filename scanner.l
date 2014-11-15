@@ -51,7 +51,6 @@ METACHAR "#"|"="
 
 {WORD}		{
 			printf("POE DEBUG: word\n");
-                        printf(" %s \n", yytext);
 			yylval.word = strdup(yytext);
 			return WORD;
 		}
