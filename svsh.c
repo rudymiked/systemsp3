@@ -43,11 +43,11 @@ int call(int opr, char *arg1, char *arg2, char *arg3, char *arg4) {
         }
         else 
           printf("%s : Not a Directory\n", arg1);
-
         return 0;
       }
       case (RUN): {
-        printf("Run program \n");
+        printf("RUDY - run\n");
+        run(arg2, arg1);
         return 0;
       }
       case (ASSIGNTO): {
@@ -81,6 +81,26 @@ int printPrompt() {
   yyparse();  
 
   return 0;
+
+}
+int run(char *arg1, char *arg2) {
+  printf("Running %s \n", arg1);
+  pid_t parent = getpid();
+  pid_t pid = fork();
+   
+  if (pid == -1)
+  {
+    printf("Failed to fork! \n");
+  }
+  else if (pid > 0)
+  {
+    int status;
+    waitpid(pid, &status, 0);
+  }
+  else { 
+    execl(arg1, arg2, (char *)NULL);
+    //_exit(EXIT_FAILURE);
+  }
 
 }
 

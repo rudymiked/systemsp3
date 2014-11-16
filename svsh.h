@@ -6,6 +6,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/syscall.h>
+#include <sys/types.h>
 #include "y.tab.h"
 
 #define MAX_JOBS 20
