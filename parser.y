@@ -7,6 +7,7 @@
 
 #include "svsh.h"
 #include "svsh.c"
+#define ShowTokens 1
 
 extern int call(int opr, char * arg1, char * arg2, char *arg3, char *arg4);
 int yylex(void);
@@ -56,14 +57,77 @@ line:
 	      ;
 
 stmt: 
-	DEFPROMPT STRING	 		{	call(DEFPROMPT, $2, NULL, NULL, NULL);	}
-	| METACHAR WORD				{	call(METACHAR, $2, NULL, NULL, NULL);	}
-	| VARIABLE METACHAR STRING		{	call(VARIABLE, $3, $2, NULL, NULL); 	 		}
-	| ASSIGNTO VARIABLE WORD VARIABLE STRING{	call(ASSIGNTO, $5, $4, $3, $2); 	}
-	| LISTJOBS				{	call(LISTJOBS, NULL, NULL, NULL, NULL);	}
-	| RUN WORD VARIABLE			{	call(RUN, $3, $2, NULL, NULL);		}
-	| CD WORD				{	call(CD, $2, NULL, NULL, NULL);		}
-	| BYE					{	exit(0);				}
+	DEFPROMPT STRING	 		{	
+							
+							if(ShowTokens)
+                        				{
+                                				printf("Token type = Keyword\t Token = defprompt\t usage = defprompt\n");
+								printf("Token type = String\t Token = %s\t usage = string\n", $2);
+                        				}
+							call(DEFPROMPT, $2, NULL, NULL, NULL);	}
+	| METACHAR WORD				{	
+							if(ShowTokens)
+                                                        {
+                                                                printf("Token type = Metachar\t Token = #\t Usage = comment\n");
+                                                                printf("Token type = Word\t Token = %s\t Usage = string\n", $2);
+                                                        }
+
+							call(METACHAR, $2, NULL, NULL, NULL);	}
+	| VARIABLE METACHAR STRING		{	
+							if(ShowTokens)
+                                                        {
+                                                                printf("Token type = Variable\t Token = %s\t Usage = variable_name \n", $1);
+                                                                printf("Token type = Metachar\t Token = =\t Usage = assignment\n");
+								printf("Token type = String\t Token = %s\t Usage = variable_def\n", $3);
+                                                        }
+
+							call(VARIABLE, $3, $2, NULL, NULL); 	}
+
+	| ASSIGNTO VARIABLE WORD VARIABLE STRING{	
+							if(ShowTokens)
+                                                        {
+                                                                printf("Token type = Keyword\t Token = assignto\t Usage = assignto\n");
+                                                             	printf("Token type = Variable\t Token = %s\t Usage = variable_name\n", $5);
+								printf("Token type = Word\t Token = %s\t Usage = directory_name\n", $4);
+								printf("Token type = Variable\t Token = %s\t Usage = arg1\n", $3);
+								printf("Token type = String\t Token = %s\t Usage = arg2\n", $2);
+
+
+                                                        }
+
+							call(ASSIGNTO, $5, $4, $3, $2); 	}
+
+	| LISTJOBS				{	
+							if(ShowTokens)
+							{
+								printf("Token type = Keyword\t Token = listjobs\t Usage = listjobs\n");
+							}
+
+							call(LISTJOBS, NULL, NULL, NULL, NULL);	}
+	| RUN WORD VARIABLE			{	
+							if(ShowTokens)
+                                                        {
+                                                                printf("Token type = Keyword\t Token = run\t Usage = run\n");
+								printf("Token type = Word\t Token = %s\t Usage = cmd\n", $3);
+								printf("Token type = Variable\t Token = %s\t Usage = variable_name\n", $2);
+                                                        }
+
+							call(RUN, $3, $2, NULL, NULL);		
+						}
+	| CD WORD				{
+							if(ShowTokens)
+                                                        {
+                                                                printf("Token type = Keyword\t Token = cd\t Usage = cd\n");
+								printf("Token type = Word\t Token = %s\t Usage = directory_name\n", $2);
+                                                        }
+
+							call(CD, $2, NULL, NULL, NULL);		}
+	| BYE					{	
+							if(ShowTokens)
+							{
+								printf("Token type = keyword\t Token = bye\t Usage = bye\n");
+							}
+							exit(0);				}
 	| WORD					{	printf("Invalid input\n");		}
 	;
 %%
