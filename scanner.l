@@ -4,6 +4,7 @@
 //	#include "scanner.h"
 	#include <stdlib.h>
 	void yyerror(char *);
+	#define ShowTokens 1
 %}
 
 STRING ("\""("\\\""|[^"\n])*"\"")|("\'"("\\\'"|[^'\n])*"\'")
@@ -23,21 +24,84 @@ METACHAR "#"|"="
 
 {METACHAR}	{	return METACHAR;	}
 {NEWLINE}	{ 	return NEWLINE;		}
-{DEFPROMPT}	{	return DEFPROMPT;	}
-{CD}		{       return CD;		}
-{LISTJOBS}	{	return LISTJOBS;	}
-{BYE}		{	return BYE;		}
-{RUN}		{	return RUN;		}
-{BG}		{	return BG;		}
-{ASSIGNTO}	{	return ASSIGNTO;	}
+
+{DEFPROMPT}	{	
+			if(ShowTokens)
+			{
+				printf("Token type = Keyword\t Token = %s\t\n", yytext);
+			}
+			return DEFPROMPT;
+		}
+
+{CD}		{       
+			if(ShowTokens)
+                        {
+                                printf("Token type = Keyword\t Token = %s\t\n", yytext);
+                        }
+
+			return CD;		
+		}
+
+{LISTJOBS}	{	
+			if(ShowTokens)
+                        {
+                                printf("Token type = Keyword\t Token = %s\t\n", yytext);
+                        }
+
+			return LISTJOBS;	
+		}
+
+{BYE}		{	if(ShowTokens)
+                        {
+                                printf("Token type = Keyword\t Token = %s\t\n", yytext);
+                        }
+
+
+			return BYE;		}
+
+{RUN}		{	
+			if(ShowTokens)
+                        {
+                                printf("Token type = Keyword\t Token = %s\t\n", yytext);
+                        }
+
+			return RUN;		
+		}
+
+{BG}		{	
+			if(ShowTokens)
+                        {
+                                printf("Token type = Keyword\t Token = %s\t\n", yytext);
+                        }
+
+			return BG;		}
+
+{ASSIGNTO}	{	
+			if(ShowTokens)
+                        {
+                                printf("Token type = Keyword\t Token = %s\t\n", yytext);
+                        }
+
+			return ASSIGNTO;	}
 
 
 {VARIABLE}	{
+			if(ShowTokens)
+                        {
+                                printf("Token type = Variable\t Token = %s\t\n", yytext);
+                        }
+
 			yylval.var = strdup(yytext);
 			return VARIABLE;
 		}
 
 {STRING}	{
+
+			if(ShowTokens)
+                        {
+                                printf("Token type = String\t Token = %s\t\n", yytext);
+                        }
+
 			yylval.string = strdup(yytext);
 			/* move string beginning beyond first quote */
 			yylval.string++;
@@ -47,6 +111,11 @@ METACHAR "#"|"="
 		}
 
 {WORD}		{
+			if(ShowTokens)
+                        {
+                                printf("Token type = Word\t Token = %s\t\n", yytext);
+                        }
+
 			yylval.word = strdup(yytext);
 			return WORD;
 		}
