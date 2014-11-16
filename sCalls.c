@@ -1,9 +1,6 @@
-#include "stdio.h"
-#include "stdlib.h"
-#include "string.h"
 #include <linux/linkage.h>
 #include <linux/kernel.h>
-#include <asm/uacces.h>
+#include <asm/uaccess.h>
 
 char *all_var_names[20];
 int *p[20];
