@@ -36,17 +36,13 @@ int yylex(void);
 %type <string> stmt
 
 %%
-session:
-	   	lines			{ /* Do nothing */ }	
-	      | /* NULL */		{ /* Do nothing */ }
+shell:
+	   	stmt			{ /* Do nothing */ }	
+	      | cmd stmt		{ /* Do nothing */ }
 	      ;
 
-lines:
-		line			{ /* Do nothing */ }
-	      |	lines line		{ /* Do nothing */ }
-	      ;
 
-line:
+cmd:
 		stmt NEWLINE		{ call(NEWLINE, NULL, NULL, NULL, NULL); }
 	      | NEWLINE			{ call(NEWLINE, NULL, NULL, NULL, NULL); }
 	      | error NEWLINE		{ 
@@ -104,7 +100,7 @@ stmt:
 							}
 
 							call(LISTJOBS, NULL, NULL, NULL, NULL);	}
-	| RUN WORD VARIABLE			{	
+/*	| RUN WORD VARIABLE			{	
 							if(ShowTokens)
                                                         {
                                                                 printf("Token type = Keyword\t Token = run\t Usage = run\n");
@@ -114,7 +110,7 @@ stmt:
 
 							call(RUN, $3, $2, NULL, NULL);		
 						}
-	| CD WORD				{
+*/	| CD WORD				{
 							if(ShowTokens)
                                                         {
                                                                 printf("Token type = Keyword\t Token = cd\t Usage = cd\n");
@@ -129,6 +125,17 @@ stmt:
 							}
 							exit(0);				}
 	| WORD					{	printf("Invalid input\n");		}
+	| arglistcmd				{	/*do nothing*/				}
+
+arglistcmd:
+	RUN WORD VARIABLE                     {
+                                                        if(ShowTokens)
+                                                        {
+                                                                printf("Token type = Keyword\t Token = run\t Usage = run\n");
+                                                                printf("Token type = Word\t Token = %s\t Usage = cmd\n", $2);
+                                                                printf("Token type = Variable\t Token = %s\t Usage = variable_name\n", $3);
+                                                        }
+						}
 	;
 %%
 
