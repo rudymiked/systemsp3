@@ -33,13 +33,11 @@ METACHAR "#"|"="
 
 
 {VARIABLE}	{
-			printf("POE DEBUG: variable\n");
 			yylval.var = strdup(yytext);
 			return VARIABLE;
 		}
 
 {STRING}	{
-			printf("POE DEBUG: string\n");
 			yylval.string = strdup(yytext);
 			/* move string beginning beyond first quote */
 			yylval.string++;
@@ -49,7 +47,6 @@ METACHAR "#"|"="
 		}
 
 {WORD}		{
-			printf("POE DEBUG: word\n");
 			yylval.word = strdup(yytext);
 			return WORD;
 		}

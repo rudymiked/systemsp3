@@ -3,13 +3,13 @@
 // CS 485
 
 #include "svsh.h"
-#include "sCalls.c"
+//#include "sCalls.c"
 
 char *prompt;
 
-extern int SaveVariable(char *varname, char *vardef);
-extern int GetVariable(char *varname, char *vardef, int deflen);
-extern int NextVariable(char *prevname, char *varname, namelen, char *vardef, int deflen);
+//extern int SaveVariable(char *varname, char *vardef);
+//extern int GetVariable(char *varname, char *vardef, int deflen);
+//extern int NextVariable(char *prevname, char *varname, namelen, char *vardef, int deflen);
 int call(int opr, char *arg1, char *arg2, char *arg3, char *arg4) {
 
   char *wd[PATH_MAX];
@@ -21,7 +21,7 @@ int call(int opr, char *arg1, char *arg2, char *arg3, char *arg4) {
     switch(opr) {
       case (METACHAR): {
         printf("%s\n", arg1);
-        break;
+        return 0;
       }
       case (DEFPROMPT): {
         prompt = arg1;
@@ -58,8 +58,13 @@ int call(int opr, char *arg1, char *arg2, char *arg3, char *arg4) {
       case (NEWLINE): {
         printPrompt();
       }
+      case (VARIABLE): {
+       printf("%s \n", arg1);
+       //SetVariable(DO FUN STUFF);
+       return 0;
+      }
       default: 
-        printPrompt();
+        return 0;
            
     }
 

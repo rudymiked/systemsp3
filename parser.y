@@ -58,16 +58,13 @@ line:
 stmt: 
 	DEFPROMPT STRING	 		{	call(DEFPROMPT, $2, NULL, NULL, NULL);	}
 	| METACHAR WORD				{	call(METACHAR, $2, NULL, NULL, NULL);	}
-	| VARIABLE METACHAR STRING		{	/*call(PATH, $2, NULL);*/		}
+	| VARIABLE METACHAR STRING		{	call(VARIABLE, $3, $2, NULL, NULL); 	 		}
 	| ASSIGNTO VARIABLE WORD VARIABLE STRING{	call(ASSIGNTO, $5, $4, $3, $2); 	}
 	| LISTJOBS				{	call(LISTJOBS, NULL, NULL, NULL, NULL);	}
-        | RUN WORD VARIABLE                     {	printf("POE DEBUG: RUN in parser \n");
-							call(RUN, $3, $2, NULL, NULL);		}
-	| CD WORD				{	printf("POE DEBUG: CD in Parser \n");
-							call(CD, $2, NULL, NULL, NULL);		}
-	| BYE					{	printf("POE DEBUG: in BYE \n");
-							exit(0);		}
-	| WORD					{	printf("Invalid input\n");	}
+	| RUN WORD VARIABLE			{	call(RUN, $3, $2, NULL, NULL);		}
+	| CD WORD				{	call(CD, $2, NULL, NULL, NULL);		}
+	| BYE					{	exit(0);				}
+	| WORD					{	printf("Invalid input\n");		}
 	;
 %%
 
