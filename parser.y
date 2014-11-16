@@ -93,50 +93,36 @@ stmt:
 
 							call(ASSIGNTO, $5, $4, $3, $2); 	}
 
-	| LISTJOBS				{	
-							if(ShowTokens)
-							{
-								printf("Token type = Keyword\t Token = listjobs\t Usage = listjobs\n");
-							}
+	| LISTJOBS		{	
+					if(ShowTokens)
+					{
+					printf("Token type = Keyword\t Token = listjobs\t Usage = listjobs\n");
+					}
+					call(LISTJOBS, NULL, NULL, NULL, NULL);	}
+	| CD WORD		{
+					if(ShowTokens)
+                                        {
+                                           printf("Token type = Keyword\t Token = cd\t Usage = cd\n");
+			                   printf("Token type = Word\t Token = %s\t Usage = directory_name\n", $2);
+                                        }
 
-							call(LISTJOBS, NULL, NULL, NULL, NULL);	}
-/*	| RUN WORD VARIABLE			{	
-							if(ShowTokens)
-                                                        {
-                                                                printf("Token type = Keyword\t Token = run\t Usage = run\n");
-								printf("Token type = Word\t Token = %s\t Usage = cmd\n", $3);
-								printf("Token type = Variable\t Token = %s\t Usage = variable_name\n", $2);
-                                                        }
-
-							call(RUN, $3, $2, NULL, NULL);		
-						}
-*/	| CD WORD				{
-							if(ShowTokens)
-                                                        {
-                                                                printf("Token type = Keyword\t Token = cd\t Usage = cd\n");
-								printf("Token type = Word\t Token = %s\t Usage = directory_name\n", $2);
-                                                        }
-
-							call(CD, $2, NULL, NULL, NULL);		}
-	| BYE					{	
-							if(ShowTokens)
-							{
-								printf("Token type = keyword\t Token = bye\t Usage = bye\n");
-							}
-							exit(0);				}
-	| WORD					{	printf("Invalid input\n");		}
-	| arglistcmd				{	/*do nothing*/				}
+		                        call(CD, $2, NULL, NULL, NULL);		}
+	| BYE			{	exit(0);				}
+	| WORD			{	printf("Invalid input\n");		}
+	| arglistcmd		{	/*do nothing*/				}
 
 arglistcmd:
-	RUN WORD VARIABLE                     {
-                                                        if(ShowTokens)
-                                                        {
-                                                                printf("Token type = Keyword\t Token = run\t Usage = run\n");
-                                                                printf("Token type = Word\t Token = %s\t Usage = cmd\n", $2);
-                                                                printf("Token type = Variable\t Token = %s\t Usage = variable_name\n", $3);
-                                                        }
-						}
-	;
+        RUN WORD		{ call(RUN, $2, NULL, NULL, NULL); }
+	| RUN WORD VARIABLE     {
+                                      if(ShowTokens)
+                                      {
+                                        printf("Token type = Keyword\t Token = run\t Usage = run\n");
+                                        printf("Token type = Word\t Token = %s\t Usage = cmd\n", $2);
+                                        printf("Token type = Variable\t Token = %s\t Usage = variable_name\n", $3);
+                                      }
+                                      call(RUN, $3, $2, NULL, NULL);
+                                }
+        	;
 %%
 
 void yyerror(char * s)

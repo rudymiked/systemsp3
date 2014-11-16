@@ -46,8 +46,12 @@ int call(int opr, char *arg1, char *arg2, char *arg3, char *arg4) {
         return 0;
       }
       case (RUN): {
-        printf("RUDY - run\n");
-        run(arg2, arg1);
+        if (arg2) // run prog $VARIABLE <-variable is present
+          run(arg2, arg1);
+        else { 
+          arg2 = ""; // <- $VARIABLE is not present, therefore set arguments to "" (for now)
+          run(arg1, arg2);
+        }
         return 0;
       }
       case (ASSIGNTO): {
@@ -98,7 +102,7 @@ int run(char *arg1, char *arg2) {
     waitpid(pid, &status, 0);
   }
   else { 
-    execl(arg1, arg2, (char *)NULL);
+    execl(arg1, "", (char *)NULL);
     //_exit(EXIT_FAILURE);
   }
 
