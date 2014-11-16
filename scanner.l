@@ -4,7 +4,7 @@
 //	#include "scanner.h"
 	#include <stdlib.h>
 	void yyerror(char *);
-	#define ShowTokens 0
+	#define ShowTokens 1
 %}
 
 STRING ("\""("\\\""|[^"\n])*"\"")|("\'"("\\\'"|[^'\n])*"\'")
