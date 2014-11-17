@@ -1,0 +1,17 @@
+$HomeDir = "/home/mylogin"
+$Myfile = "fileA"
+$Filebase = "paper"
+$ShowTokens = "1"
+run echo $PATH
+cd /usr/bin
+cd ./bin
+cd ../misc/oldstuff
+cd /usr
+cd $HomeDir
+run /usr/bin/wc $Myfile
+assignto $TextFile /bin/echo $Filebase "\b.txt"
+run cat $TextFile
+run /bin/ls
+run ls -l -F -g -s /tmp
+bye
+

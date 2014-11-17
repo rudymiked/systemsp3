@@ -1,0 +1,310 @@
+Terminals unused in grammar
+
+   BG
+
+
+Grammar
+
+    0 $accept: shell $end
+
+    1 shell: stmt
+    2      | cmd stmt
+
+    3 cmd: stmt NEWLINE
+    4    | NEWLINE
+    5    | error NEWLINE
+
+    6 stmt: DEFPROMPT STRING
+    7     | METACHAR WORD
+    8     | VARIABLE METACHAR STRING
+    9     | ASSIGNTO VARIABLE WORD VARIABLE STRING
+   10     | LISTJOBS
+   11     | CD WORD
+   12     | BYE
+   13     | WORD
+   14     | arglistcmd
+
+   15 arglistcmd: RUN WORD
+   16           | RUN WORD VARIABLE
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+error (256) 5
+NEWLINE (258) 3 4 5
+DEFPROMPT (259) 6
+CD (260) 11
+ASSIGNTO (261) 9
+LISTJOBS (262) 10
+BYE (263) 12
+BG (264)
+RUN (265) 15 16
+STRING (266) 6 8 9
+VARIABLE (267) 8 9 16
+METACHAR (268) 7 8
+WORD (269) 7 9 11 13 15 16
+
+
+Nonterminals, with rules where they appear
+
+$accept (15)
+    on left: 0
+shell (16)
+    on left: 1 2, on right: 0
+cmd (17)
+    on left: 3 4 5, on right: 2
+stmt (18)
+    on left: 6 7 8 9 10 11 12 13 14, on right: 1 2 3
+arglistcmd (19)
+    on left: 15 16, on right: 14
+
+
+State 0
+
+    0 $accept: . shell $end
+
+    error      shift, and go to state 1
+    NEWLINE    shift, and go to state 2
+    DEFPROMPT  shift, and go to state 3
+    CD         shift, and go to state 4
+    ASSIGNTO   shift, and go to state 5
+    LISTJOBS   shift, and go to state 6
+    BYE        shift, and go to state 7
+    RUN        shift, and go to state 8
+    VARIABLE   shift, and go to state 9
+    METACHAR   shift, and go to state 10
+    WORD       shift, and go to state 11
+
+    shell       go to state 12
+    cmd         go to state 13
+    stmt        go to state 14
+    arglistcmd  go to state 15
+
+
+State 1
+
+    5 cmd: error . NEWLINE
+
+    NEWLINE  shift, and go to state 16
+
+
+State 2
+
+    4 cmd: NEWLINE .
+
+    $default  reduce using rule 4 (cmd)
+
+
+State 3
+
+    6 stmt: DEFPROMPT . STRING
+
+    STRING  shift, and go to state 17
+
+
+State 4
+
+   11 stmt: CD . WORD
+
+    WORD  shift, and go to state 18
+
+
+State 5
+
+    9 stmt: ASSIGNTO . VARIABLE WORD VARIABLE STRING
+
+    VARIABLE  shift, and go to state 19
+
+
+State 6
+
+   10 stmt: LISTJOBS .
+
+    $default  reduce using rule 10 (stmt)
+
+
+State 7
+
+   12 stmt: BYE .
+
+    $default  reduce using rule 12 (stmt)
+
+
+State 8
+
+   15 arglistcmd: RUN . WORD
+   16           | RUN . WORD VARIABLE
+
+    WORD  shift, and go to state 20
+
+
+State 9
+
+    8 stmt: VARIABLE . METACHAR STRING
+
+    METACHAR  shift, and go to state 21
+
+
+State 10
+
+    7 stmt: METACHAR . WORD
+
+    WORD  shift, and go to state 22
+
+
+State 11
+
+   13 stmt: WORD .
+
+    $default  reduce using rule 13 (stmt)
+
+
+State 12
+
+    0 $accept: shell . $end
+
+    $end  shift, and go to state 23
+
+
+State 13
+
+    2 shell: cmd . stmt
+
+    DEFPROMPT  shift, and go to state 3
+    CD         shift, and go to state 4
+    ASSIGNTO   shift, and go to state 5
+    LISTJOBS   shift, and go to state 6
+    BYE        shift, and go to state 7
+    RUN        shift, and go to state 8
+    VARIABLE   shift, and go to state 9
+    METACHAR   shift, and go to state 10
+    WORD       shift, and go to state 11
+
+    stmt        go to state 24
+    arglistcmd  go to state 15
+
+
+State 14
+
+    1 shell: stmt .
+    3 cmd: stmt . NEWLINE
+
+    NEWLINE  shift, and go to state 25
+
+    $default  reduce using rule 1 (shell)
+
+
+State 15
+
+   14 stmt: arglistcmd .
+
+    $default  reduce using rule 14 (stmt)
+
+
+State 16
+
+    5 cmd: error NEWLINE .
+
+    $default  reduce using rule 5 (cmd)
+
+
+State 17
+
+    6 stmt: DEFPROMPT STRING .
+
+    $default  reduce using rule 6 (stmt)
+
+
+State 18
+
+   11 stmt: CD WORD .
+
+    $default  reduce using rule 11 (stmt)
+
+
+State 19
+
+    9 stmt: ASSIGNTO VARIABLE . WORD VARIABLE STRING
+
+    WORD  shift, and go to state 26
+
+
+State 20
+
+   15 arglistcmd: RUN WORD .
+   16           | RUN WORD . VARIABLE
+
+    VARIABLE  shift, and go to state 27
+
+    $default  reduce using rule 15 (arglistcmd)
+
+
+State 21
+
+    8 stmt: VARIABLE METACHAR . STRING
+
+    STRING  shift, and go to state 28
+
+
+State 22
+
+    7 stmt: METACHAR WORD .
+
+    $default  reduce using rule 7 (stmt)
+
+
+State 23
+
+    0 $accept: shell $end .
+
+    $default  accept
+
+
+State 24
+
+    2 shell: cmd stmt .
+
+    $default  reduce using rule 2 (shell)
+
+
+State 25
+
+    3 cmd: stmt NEWLINE .
+
+    $default  reduce using rule 3 (cmd)
+
+
+State 26
+
+    9 stmt: ASSIGNTO VARIABLE WORD . VARIABLE STRING
+
+    VARIABLE  shift, and go to state 29
+
+
+State 27
+
+   16 arglistcmd: RUN WORD VARIABLE .
+
+    $default  reduce using rule 16 (arglistcmd)
+
+
+State 28
+
+    8 stmt: VARIABLE METACHAR STRING .
+
+    $default  reduce using rule 8 (stmt)
+
+
+State 29
+
+    9 stmt: ASSIGNTO VARIABLE WORD VARIABLE . STRING
+
+    STRING  shift, and go to state 30
+
+
+State 30
+
+    9 stmt: ASSIGNTO VARIABLE WORD VARIABLE STRING .
+
+    $default  reduce using rule 9 (stmt)
