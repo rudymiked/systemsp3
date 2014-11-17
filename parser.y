@@ -13,11 +13,11 @@
 #define ShowTokens 1
 #define MAXARGS 20
 
-struct args{
-	char * arg[MAXARGS];
-};
+char *arguement[MAXARGS];
 
-extern int call(int opr, char * arg1, char * arg2, char *arg3, char *arg4);
+int list_index = 0;
+
+extern int call(int opr, char * arg1, char * arg2, char *arg3, char *arg4[MAXARGS], int index);
 int yylex(void);
 
 %}
@@ -41,7 +41,7 @@ int yylex(void);
 %token <mchar> METACHAR
 %token <word> WORD
 
-%type <string> stmt
+%type <string> stmt arglistcmd
 
 %%
 shell:
@@ -51,8 +51,8 @@ shell:
 
 
 cmd:
-		stmt NEWLINE		{ call(NEWLINE, NULL, NULL, NULL, NULL); }
-	      | NEWLINE			{ call(NEWLINE, NULL, NULL, NULL, NULL); }
+		stmt NEWLINE		{ call(NEWLINE, NULL, NULL, NULL, NULL, NULL); }
+	      | NEWLINE			{ call(NEWLINE, NULL, NULL, NULL, NULL, NULL); }
 	      | error NEWLINE		{ 
 						yyerrok;
 						yyclearin;
@@ -68,7 +68,7 @@ stmt:
                                 				printf("Token type = Keyword\t Token = defprompt\t usage = defprompt\n");
 								printf("Token type = String\t Token = %s\t usage = string\n", $2);
                         				}
-							call(DEFPROMPT, $2, NULL, NULL, NULL);	}
+							call(DEFPROMPT, $2, NULL, NULL, NULL, NULL);	}
 	| METACHAR WORD				{	
 							if(ShowTokens)
                                                         {
@@ -76,7 +76,7 @@ stmt:
                                                                 printf("Token type = Word\t Token = %s\t Usage = string\n", $2);
                                                         }
 
-							call(METACHAR, $2, NULL, NULL, NULL);	}
+							call(METACHAR, $2, NULL, NULL, NULL, NULL);	}
 	| VARIABLE METACHAR STRING		{	
 							if(ShowTokens)
                                                         {
@@ -99,14 +99,14 @@ stmt:
 
                                                         }
 
-							call(ASSIGNTO, $5, $4, $3, $2); 	}
+							call(ASSIGNTO, $5, $4, $3, $2, NULL); 	}
 
 	| LISTJOBS		{	
 					if(ShowTokens)
 					{
 					printf("Token type = Keyword\t Token = listjobs\t Usage = listjobs\n");
 					}
-					call(LISTJOBS, NULL, NULL, NULL, NULL);	}
+					call(LISTJOBS, NULL, NULL, NULL, NULL, NULL);	}
 	| CD WORD		{
 					if(ShowTokens)
                                         {
@@ -114,23 +114,15 @@ stmt:
 			                   printf("Token type = Word\t Token = %s\t Usage = directory_name\n", $2);
                                         }
 
-		                        call(CD, $2, NULL, NULL, NULL);		}
+		                        call(CD, $2, NULL, NULL, NULL, NULL);		}
 	| BYE			{	exit(0);				}
 	| WORD			{	printf("Invalid input\n");		}
-	| arglistcmd		{	/*do nothing*/				}
+	| RUN arglistcmd	{	call(RUN, NULL, NULL, NULL, arguement, list_index); list_index = 0;}
 
 arglistcmd:
-        RUN WORD		{ call(RUN, $2, NULL, NULL, NULL); }
-	| RUN WORD VARIABLE     {
-                                      if(ShowTokens)
-                                      {
-                                        printf("Token type = Keyword\t Token = run\t Usage = run\n");
-                                        printf("Token type = Word\t Token = %s\t Usage = cmd\n", $2);
-                                        printf("Token type = Variable\t Token = %s\t Usage = variable_name\n", $3);
-                                      }
-                                      call(RUN, $3, $2, NULL, NULL);
-                                }
-        	;
+        
+	WORD    		 {arguement[list_index] = $1;}
+	|WORD arglistcmd	{arguement[list_index] = $1; list_index++;};
 %%
 
 void yyerror(char * s)

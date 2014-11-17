@@ -65,7 +65,7 @@ int addjob(struct job *run_s, char *arg1, int pid, int state) {
 }
 
 
-int call(int opr, char *arg1, char *arg2, char *arg3, char *arg4) {
+int call(int opr, char *arg1, char *arg2, char *arg3, char *arg4[], int index) {
  
   char *wd[PATH_MAX];
   char *s;
