@@ -9,13 +9,20 @@
 #include <sys/types.h>
 #include "y.tab.h"
 
-#define MAX_JOBS 20
+#define MAX_JOBS 40
 #define PATH_MAX 20
+#define LINE 20
+
 
 #define UP	0x48
 #define DOWN	0x50
 #define LEFT	0x4B
 #define RIGHT	0x4D
 
-
-extern int call(int opr, char *arg1, char *arg2, char *arg3, char *arg4);
+struct job {
+  int pid;
+  int job_id;
+  int state;
+  char *name;
+  char cmdline[LINE];
+};

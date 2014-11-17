@@ -5,7 +5,8 @@
 #include <stdarg.h>
 #include <string.h>
 
-#include "svsh.h"
+//#include "svsh.h"
+
 #include "svsh.c"
 #define ShowTokens 1
 

@@ -8,6 +8,7 @@ BIN_NAME = scannerparser
 CC=gcc
 CFLAGS=-Wall
 OPTIONS = -lfl
+DEPS = svsh.h
 
 OBJ = svsh.o
 BIN = svsh
@@ -20,7 +21,7 @@ $(BIN_NAME): clean
 	$(CC) -o $(BIN_NAME) y.tab.c lex.yy.c $(OPTIONS)
 	
 
-%.o: %.c
+%.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
 svshmake: svsh.o 
