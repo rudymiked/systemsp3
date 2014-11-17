@@ -24,7 +24,7 @@ int printPrompt() {
   return 0;
 
 }
-int run(struct job *run_s, char *arg1, char *arg2) {
+int run(struct job *run_s, char *arg1[], int index) {
   pid_t parent = getpid();
   pid_t pid = fork();
   int status;
@@ -40,7 +40,21 @@ int run(struct job *run_s, char *arg1, char *arg2) {
     waitpid(pid, status, 0);
   }
   else { 
-    execl(arg1, "", (char *)NULL);
+    if (index > 0) {
+      const char s[2] = "/";
+      char *t;
+      t = strtok(arg1[index-1], s);
+      if (t != NULL) {
+        t = strtok(NULL, s);
+      }
+      printf("t = %s \n", t); 
+      
+      printf("arg : %s \n", arg1[index-2]);
+
+      execl(arg1[index-1], t, "-l", (char *)NULL);
+    }
+    else 
+      execl(arg1[0], "", (char *)NULL);
     _exit(EXIT_FAILURE);
   }
 
@@ -65,7 +79,7 @@ int addjob(struct job *run_s, char *arg1, int pid, int state) {
 }
 
 
-int call(int opr, char *arg1, char *arg2, char *arg3, char *arg4[], int index) {
+int call(int opr, char *arg1, char *arg2, char *arg3, char **arg4, int index) {
  
   char *wd[PATH_MAX];
   char *s;
@@ -101,13 +115,12 @@ int call(int opr, char *arg1, char *arg2, char *arg3, char *arg4[], int index) {
         return 0;
       }
       case (RUN): {
-        if (arg2) { // run prog $VARIABLE <-variable is present
-          run(&run_s[job_number], arg2, arg1);
+        int x;
+        for (x = 0; x < index; ++x) {
+          printf("case: %d : %s \n", x, arg4[x]);
         }
-        else { 
-          arg2 = ""; // <- $VARIABLE is not present, therefore set arguments to "" (for now)
-          run(&run_s[job_number], arg1, arg2);
-        }
+        run(&run_s[job_number], arg4, index);
+
         return 0;
       }
       case (ASSIGNTO): {
