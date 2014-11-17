@@ -4,10 +4,12 @@
 #include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
+#include <sys/syscall.h>
 
-//#include "svsh.h"
-
+/*#include "svsh.h"*/
 #include "svsh.c"
+#include "variablecall.c"
+
 #define ShowTokens 1
 #define MAXARGS 20
 
@@ -83,7 +85,7 @@ stmt:
 								printf("Token type = String\t Token = %s\t Usage = variable_def\n", $3);
                                                         }
 
-							call(VARIABLE, $3, $2, NULL, NULL); 	}
+							assignVarName($1, $3); 	}
 
 	| ASSIGNTO VARIABLE WORD VARIABLE STRING{	
 							if(ShowTokens)

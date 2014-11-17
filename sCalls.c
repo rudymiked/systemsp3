@@ -1,6 +1,8 @@
 #include <linux/linkage.h>
 #include <linux/kernel.h>
 #include <asm/uaccess.h>
+#include <linux/gfp.h>
+#include <linux/slab.h>
 
 char *all_var_names[20];
 int *p[20];
@@ -11,20 +13,21 @@ struct set_to{
 	char *def;};
 
 
-asmlinkage int SaveVariable(char *varname, char * vardef){
+asmlinkage int sys_SaveVariable(char *varname, char * vardef){
 		
 		int status = -1;
-		
+		int copy_return = -1;		
 		struct set_to variable;  
 		
 		variable.name = varname;
 		variable.def= vardef;
-
+		printk(KERN_EMERG "%s\t %s\t\n", varname, vardef);
 		char *kernel_ptr = kmalloc(sizeof(variable), GFP_USER);		
-
-		copy_from_user(kernel_ptr, &variable, sizeof(variable));
 		
-		if(copy_from_user == 0){
+		copy_return = copy_from_user(kernel_ptr, &variable, sizeof(variable));
+		printk(KERN_EMERG "%d\n", copy_return);
+		
+		if(copy_return == 0){
 			status = 0;
 			all_var_names[place_holder] = varname;
 			place_holder ++;}
@@ -32,13 +35,13 @@ asmlinkage int SaveVariable(char *varname, char * vardef){
 		return status;
 }
 
-asmlinkage int GetVariable(char *varname, char *vardef, int deflen){
+asmlinkage int sys_GetVariable(char *varname, char *vardef, int deflen){
 
 		char buff[deflen];
 
 		int status = -1;
-
-		for(int i = 0; i < sizeof(all_var_names); i++){
+		int i = 0;
+		for(i = 0; i < sizeof(all_var_names); i++){
 			
 			if(strcmp(all_var_names[i], varname)){
 				copy_to_user(&buff, p[i], deflen);
@@ -48,7 +51,7 @@ asmlinkage int GetVariable(char *varname, char *vardef, int deflen){
 
 }
 
-asmlinkage int NextVariable(char *prevname, char *varname, int namelen, char *vardef, int deflen){
+asmlinkage int sys_NextVariable(char *prevname, char *varname, int namelen, char *vardef, int deflen){
 		
 		char tmp_name[namelen];
 		char tmp_def[deflen];
