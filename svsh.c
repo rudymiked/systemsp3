@@ -36,7 +36,7 @@ int run(struct job *run_s, char *arg1[], int index) {
   else if (pid > 0)
   {
     job_number = pid - parent;
-    addjob(run_s, arg1, pid, 1);
+    addjob(run_s, arg1[0], pid, 1);
     waitpid(pid, status, 0);
   }
   else { 
