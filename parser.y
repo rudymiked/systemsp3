@@ -9,6 +9,11 @@
 
 #include "svsh.c"
 #define ShowTokens 1
+#define MAXARGS 20
+
+struct args{
+	char * arg[MAXARGS];
+};
 
 extern int call(int opr, char * arg1, char * arg2, char *arg3, char *arg4);
 int yylex(void);
