@@ -65,14 +65,14 @@ stmt:
 							
 							if(ShowTokens)
                         				{
-                                				printf("\nToken type = Keyword\t Token = defprompt\t usage = defprompt\n");
+                                				printf("Token type = Keyword\t Token = defprompt\t usage = defprompt\n");
 								printf("Token type = String\t Token = %s\t usage = string\n", $2);
                         				}
 							call(DEFPROMPT, $2, NULL, NULL, arguement, list_index);	}
 	| METACHAR WORD				{	
 							if(ShowTokens)
                                                         {
-                                                                printf("\nToken type = Metachar\t Token = #\t Usage = comment\n");
+                                                                printf("Token type = Metachar\t Token = #\t Usage = comment\n");
                                                                 printf("Token type = Word\t Token = %s\t Usage = string\n", $2);
                                                         }
 
@@ -80,7 +80,7 @@ stmt:
 	| VARIABLE METACHAR STRING		{	
 							if(ShowTokens)
                                                         {
-                                                                printf("\nToken type = Variable\t Token = %s\t Usage = variable_name \n", $1);
+                                                                printf("Token type = Variable\t Token = %s\t Usage = variable_name \n", $1);
                                                                 printf("Token type = Metachar\t Token = =\t Usage = assignment\n");
 								printf("Token type = String\t Token = %s\t Usage = variable_def\n", $3);
                                                         }
@@ -90,7 +90,7 @@ stmt:
 	| ASSIGNTO VARIABLE arglistcmd VARIABLE STRING{	
 							if(ShowTokens)
                                                         {
-                                                                printf("\nToken type = Keyword\t Token = assignto\t Usage = assignto\n");
+                                                                printf("Token type = Keyword\t Token = assignto\t Usage = assignto\n");
                                                              	printf("Token type = Variable\t Token = %s\t Usage = variable_name\n", $5);
 								printf("Token type = Word\t Token = %s\t Usage = directory_name\n", $4);
 								printf("Token type = Variable\t Token = %s\t Usage = arg1\n", $3);
@@ -104,7 +104,7 @@ stmt:
 	| LISTJOBS		{	
 					if(ShowTokens)
 					{
-					printf("\nToken type = Keyword\t Token = listjobs\t Usage = listjobs\n");
+					printf("Token type = Keyword\t Token = listjobs\t Usage = listjobs\n");
 					}
 					call(LISTJOBS, NULL, NULL, NULL, arguement, list_index);	}
 	| CD WORD		{
