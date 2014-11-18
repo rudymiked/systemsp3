@@ -85,7 +85,6 @@ int addjob(struct job *run_s, char *arg1, int pid, int state) {
 int call(int opr, char *arg1, char *arg2, char *arg3, char **arg4, int index) {
  
   char *wd[PATH_MAX];
-  char *s;
   int i = 0;
   int k = 0;
   char *jobs[MAX_JOBS];
@@ -120,15 +119,18 @@ int call(int opr, char *arg1, char *arg2, char *arg3, char **arg4, int index) {
       case (RUN): {
         int x;
         for (x = 0; x < index; ++x) {
-          printf("case: %d : %s \n", x, arg4[x]);
+          printf("case_r: %d : %s \n", x, arg4[x]);
         }
         run(&run_s[job_number], arg4, index);
 
         return 0;
       }
       case (ASSIGNTO): {
-        s = arg1;
-        printf(" %s, assign output to a variable\n", s);
+        printf("var1: %s, var2: %s, string: %s \n", arg3, arg2, arg1);
+        int y;
+        for (y = 0; y < index; ++y) {
+          printf("case_as: %d : %s \n", y, arg4[y]);
+        }
         return 0;
       }
       case (NEWLINE): {
