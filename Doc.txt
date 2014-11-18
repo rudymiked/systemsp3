@@ -21,7 +21,7 @@ run cmd
 defprompt "new_svsh"
 	-alters prompt to string specified
 listjobs
-	-lists current running jobs
+	-lists history of jobs 
 bye
 	-exits the shell
 

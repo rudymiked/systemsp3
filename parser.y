@@ -10,13 +10,13 @@
 #include "svsh.c"
 #include "variablecall.c"
 
-// Maximum amount of arguements is 20
+// Maximum amount of arguments is 20
 #define ShowTokens 0
 #define MAXARGS 20
 
-char *arguement[MAXARGS];
+char *argument[MAXARGS];
 
-//Number of arguements being passed.
+//Number of arguments being passed.
 int list_index = 0;
 
 extern int call(int opr, char * arg1, char * arg2, char *arg3, char *arg4[MAXARGS], int index);
@@ -55,8 +55,8 @@ shell:
 
 
 cmd:
-		stmt NEWLINE		{ call(NEWLINE, NULL, NULL, NULL, arguement, list_index); }
-	      | NEWLINE			{ call(NEWLINE, NULL, NULL, NULL, arguement, list_index); }
+		stmt NEWLINE		{ call(NEWLINE, NULL, NULL, NULL, argument, list_index); }
+	      | NEWLINE			{ call(NEWLINE, NULL, NULL, NULL, argument, list_index); }
 	      | error NEWLINE		{ 
 						yyerrok;
 						yyclearin;
@@ -73,7 +73,7 @@ stmt:
                                 				printf("Token type = Keyword\t Token = defprompt\t usage = defprompt\n");
 								printf("Token type = String\t Token = %s\t usage = string\n", $2);
                         				}
-							call(DEFPROMPT, $2, NULL, NULL, arguement, list_index);	}
+							call(DEFPROMPT, $2, NULL, NULL, argument, list_index);	}
 	| METACHAR WORD				{	
 							if(ShowTokens)
                                                         {
@@ -81,7 +81,7 @@ stmt:
                                                                 printf("Token type = Word\t Token = %s\t Usage = string\n", $2);
                                                         }
 
-							call(METACHAR, $2, NULL, NULL, arguement, list_index);	}
+							call(METACHAR, $2, NULL, NULL, argument, list_index);	}
 	| VARIABLE METACHAR STRING		{	
 							if(ShowTokens)
                                                         {
@@ -104,14 +104,14 @@ stmt:
 
                                                         }
 
-							call(ASSIGNTO, $5, $4, $2, arguement, list_index); 	}
+							call(ASSIGNTO, $5, $4, $2, argument, list_index); 	}
 
 	| LISTJOBS		{	
 					if(ShowTokens)
 					{
 					printf("Token type = Keyword\t Token = listjobs\t Usage = listjobs\n");
 					}
-					call(LISTJOBS, NULL, NULL, NULL, arguement, list_index);	}
+					call(LISTJOBS, NULL, NULL, NULL, argument, list_index);	}
 	| CD WORD		{
 					if(ShowTokens)
                                         {
@@ -120,20 +120,19 @@ stmt:
                                         }
 
 		
-		                        call(CD, $2, NULL, NULL, arguement, list_index);		}
+		                        call(CD, $2, NULL, NULL, argument, list_index);		}
 	| BYE			{	exit(0);				}
 	| WORD			{	printf("\nInvalid input\n");		}
-	| RUN arglistcmd	{	call(RUN, NULL, NULL, NULL, arguement, list_index); list_index = 0;}
+	| RUN arglistcmd	{	call(RUN, NULL, NULL, NULL, argument, list_index); list_index = 0;}
 
-arglistcmd:			/*Recursive call of arglistcmd that allows for the build of the arguement list */
+arglistcmd:			/*Recursive call of arglistcmd that allows for the build of the argument list */
         
 
-	WORD    		 {arguement[list_index] = $1;}
-        |VARIABLE    		 {arguement[list_index] = $1;}
-	|VARIABLE arglistcmd	{arguement[list_index] = $1; list_index++; arguement[list_index] = $2; list_index++;}
-	|WORD arglistcmd	{arguement[list_index] = $1; list_index++; arguement[list_index] = $2; list_index++;};
+	WORD    		 {argument[list_index] = $1;}
+        |VARIABLE    		 {argument[list_index] = $1;}
+	|VARIABLE arglistcmd 	{argument[list_index] = $1; list_index++; argument[list_index] = $2; list_index++;}
+	|WORD arglistcmd       	{argument[list_index] = $1; list_index++; argument[list_index] = $2; list_index++;};
 %%
-
 
 void yyerror(char * s)
 {

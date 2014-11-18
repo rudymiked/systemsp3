@@ -1,0 +1,13 @@
+README 
+CS 485 
+Rudy Poe Besse Benavides
+
+Files:
+svsh.h
+svsh.c
+parser.y
+scanner.l
+Doc.txt
+Makefile
+variablecall.c
+README
