@@ -43,17 +43,11 @@ int run(struct job *run_s, char *arg1[], int index) {
   }
   else { 
     if (index > 0) {
-      const char s[2] = "/";
-      char *t;
-  
+      // execv excepts NULL at the end of the array
       arg1[index] = NULL;
-
-      int z;
-      for(z = 0; z < index+1; ++z)
-      {
-        printf("arg : %s \n", arg1[z]);
-      }
         
+      //execute command
+      //takes in arg1 list of args
       execv(arg1[0], arg1);
     }
     else 
@@ -66,17 +60,17 @@ int run(struct job *run_s, char *arg1[], int index) {
 
 int addjob(struct job *run_s, char *arg1, int pid, int state) {
   int status = 1;
+
   if (pid < 1)
     status = 0;
+
   int i;
   int n = job_number;
- // if (run_s->pid == 0) {
+
   run_s[n].pid = pid;
   run_s[n].state = state;
   run_s[n].job_id = n;
   run_s[n].name  = arg1;
-  //}
- // }
 
   return status;
 }
@@ -84,8 +78,7 @@ int addjob(struct job *run_s, char *arg1, int pid, int state) {
 
 int call(int opr, char *arg1, char *arg2, char *arg3, char **arg4, int index) {
  
-  char *wd[PATH_MAX];
-  int i = 0;
+  char *wd[PATH_MAX]; //used for getwd
   int k = 0;
   char *jobs[MAX_JOBS];
   
@@ -109,18 +102,22 @@ int call(int opr, char *arg1, char *arg2, char *arg3, char **arg4, int index) {
       case (CD): {
         k = chdir(arg1);
         if (!k)  {
-          getwd(wd);
-          printf("pwd: %s\n", wd);
+
+          //just for debugging
+          //getwd(wd);
+          //printf("pwd: %s\n", wd);
         }
-        else 
+        else //directory does not exist
           printf("%s : Not a Directory\n", arg1);
         return 0;
       }
       case (RUN): {
-        int x;
+      /*  int x;
         for (x = 0; x < index; ++x) {
           printf("case_r: %d : %s \n", x, arg4[x]);
-        }
+        }*/
+ 
+        //run command
         run(&run_s[job_number], arg4, index);
 
         return 0;
@@ -131,6 +128,7 @@ int call(int opr, char *arg1, char *arg2, char *arg3, char **arg4, int index) {
         for (y = 0; y < index; ++y) {
           printf("case_as: %d : %s \n", y, arg4[y]);
         }
+    
         return 0;
       }
       case (NEWLINE): {

@@ -129,6 +129,8 @@ arglistcmd:			/*Recursive call of arglistcmd that allows for the build of the ar
         
 
 	WORD    		 {arguement[list_index] = $1;}
+        |VARIABLE    		 {arguement[list_index] = $1;}
+	|VARIABLE arglistcmd	{arguement[list_index] = $1; list_index++; arguement[list_index] = $2; list_index++;}
 	|WORD arglistcmd	{arguement[list_index] = $1; list_index++; arguement[list_index] = $2; list_index++;};
 %%
 
