@@ -1,7 +1,15 @@
 Documentation File
-Group Members: Mike Rudy, Ashley Poe
+Group Members: Mike Rudy, Ashley Poe, Jacob Besse, AJ Benavides
 
 Our shell successfully executes a majority of the commands. 
+
+Description:
+
+Project 3 successfully creates a saved variable shell. The shell can take commands, arugments, list jobs, change directory. It can also, using the system calls, save definitions to assigned variables, get the definitions of variables using GetVariable.
+
+
+Command Limitations: When a variable is redefined, the GetVariable returns the first definition.
+
 
 Commands that function:
 cd dir_name
