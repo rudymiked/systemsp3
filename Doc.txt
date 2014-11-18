@@ -1,0 +1,31 @@
+Documentation File
+Group Members: Mike Rudy, Ashley Poe
+
+Our shell successfully executes a majority of the commands. 
+
+Commands that function:
+cd dir_name
+	-changes directory, outputs current directory
+run cmd
+	-executes command
+# comment
+	-outputs comment
+defprompt "new_svsh"
+	-alters prompt to string specified
+listjobs
+	-lists current running jobs
+bye
+	-exits the shell
+
+
+Commands that do NOT function:
+assignto
+	-sys calls do not function
+var_name = var_def
+	-sys calls do not function
+run cmd args[]
+	-args do not work
+
+
+
+
