@@ -122,7 +122,7 @@ stmt:
 arglistcmd:
         
 	WORD    		 {arguement[list_index] = $1;}
-	|WORD arglistcmd	{arguement[list_index] = $1; list_index++; printf("%s, %s, %s, %s \n", arguement[0], arguement[1], arguement[2]), arguement[3];};
+	|WORD arglistcmd	{arguement[list_index] = $1; list_index++; arguement[list_index] = $2; list_index++;};
 %%
 
 void yyerror(char * s)

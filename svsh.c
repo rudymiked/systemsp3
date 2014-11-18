@@ -24,6 +24,8 @@ int printPrompt() {
   return 0;
 
 }
+
+
 int run(struct job *run_s, char *arg1[], int index) {
   pid_t parent = getpid();
   pid_t pid = fork();
@@ -43,15 +45,16 @@ int run(struct job *run_s, char *arg1[], int index) {
     if (index > 0) {
       const char s[2] = "/";
       char *t;
-      t = strtok(arg1[index-1], s);
-      if (t != NULL) {
-        t = strtok(NULL, s);
-      }
-      printf("t = %s \n", t); 
-      
-      printf("arg : %s \n", arg1[index-2]);
+  
+      arg1[index] = NULL;
 
-      execl(arg1[index-1], t, "-l", (char *)NULL);
+      int z;
+      for(z = 0; z < index+1; ++z)
+      {
+        printf("arg : %s \n", arg1[z]);
+      }
+        
+      execv(arg1[0], arg1);
     }
     else 
       execl(arg1[0], "", (char *)NULL);
