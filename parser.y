@@ -10,11 +10,13 @@
 #include "svsh.c"
 #include "variablecall.c"
 
-#define ShowTokens 1
+// Maximum amount of arguements is 20
+#define ShowTokens 0
 #define MAXARGS 20
 
 char *arguement[MAXARGS];
 
+//Number of arguements being passed.
 int list_index = 0;
 
 extern int call(int opr, char * arg1, char * arg2, char *arg3, char *arg4[MAXARGS], int index);
@@ -27,6 +29,7 @@ int yylex(void);
 	char *var;
 	char *mchar;
 };
+
 
 %token NEWLINE
 %token DEFPROMPT
@@ -42,8 +45,9 @@ int yylex(void);
 %token <word> WORD
 
 %type <string> stmt arglistcmd
-
 %%
+
+
 shell:
 	   	stmt			{ /* Do nothing */ }	
 	      | cmd stmt		{ /* Do nothing */ }
@@ -59,6 +63,7 @@ cmd:
 						printPrompt();
 					}
 	      ;
+
 
 stmt: 
 	DEFPROMPT STRING	 		{	
@@ -114,16 +119,19 @@ stmt:
 			                   printf("Token type = Word\t Token = %s\t Usage = directory_name\n", $2);
                                         }
 
+		
 		                        call(CD, $2, NULL, NULL, arguement, list_index);		}
 	| BYE			{	exit(0);				}
 	| WORD			{	printf("\nInvalid input\n");		}
 	| RUN arglistcmd	{	call(RUN, NULL, NULL, NULL, arguement, list_index); list_index = 0;}
 
-arglistcmd:
+arglistcmd:			/*Recursive call of arglistcmd that allows for the build of the arguement list */
         
+
 	WORD    		 {arguement[list_index] = $1;}
 	|WORD arglistcmd	{arguement[list_index] = $1; list_index++; arguement[list_index] = $2; list_index++;};
 %%
+
 
 void yyerror(char * s)
 {
