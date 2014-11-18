@@ -6,6 +6,7 @@ Files:
 svsh.h
 svsh.c
 parser.y
+sCalls.c
 scanner.l
 Doc.txt
 Makefile
