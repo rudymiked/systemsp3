@@ -113,18 +113,13 @@ asmlinkage int sys_GetVariable(char *varname, char *vardef, int deflen){
        		}
 	
 		/* check for match */
+		printk(KERN_EMERG "VarNameTemp = %s, VarNames[i] = %s\n", VarNameTemp, VariableNames[i]);
 		if(strcmp(VarNameTemp, VariableNames[i])==0)
 		{
 			/* if match, set user the def of variable*/
 			copy_to_user(vardef, VariableDefs[i], MAX_BUF_SIZE);
 			printk(KERN_EMERG "Success! Vardef = %s", vardef);
 			return 0;
-		}
-		else
-		{
-			/* if not matched, return -1 */
-			printk(KERN_EMERG "Failure. Match not found.\n");
-			return -1;
 		}
 	}
 	/* if something goes wrong, return -1 */
@@ -148,7 +143,7 @@ asmlinkage int sys_NextVariable(char *prevname, char *varname, int namelen, char
 		return -2;
 	}
 	printk(KERN_EMERG "Searching for %s\n", PrevNameTemp);
-	if(PrevNameTemp[0] = ' ')
+	if((PrevNameTemp[0]) == ' ')
 	{
 		/* if at first variable, copy first variable into varname vardef*/
 		printk(KERN_EMERG "Starting at first variable\n");

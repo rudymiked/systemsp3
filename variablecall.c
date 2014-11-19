@@ -9,7 +9,7 @@ int assignVarName(char * arg1, char * arg2 )
 	retval = syscall(__NR_sys_SaveVariable, arg1, arg2);
 	if(retval == 0)
 	{
-		printf("Variable saved successfully");
+		printf("Variable saved successfully\n");
 	}
 	else
 	{
@@ -24,7 +24,7 @@ int getVar(char *varname, char *vardef, int deflen)
 	retval = syscall(__NR_sys_GetVariable, varname, vardef, deflen);
 	if(retval == 0)
         {
-                printf("Variable retrieved successfully");
+                printf("Variable retrieved successfully\n");
         }
         else
         {
