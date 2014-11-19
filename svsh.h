@@ -8,6 +8,7 @@
 #include <sys/syscall.h>
 #include <sys/types.h>
 #include "y.tab.h"
+#include "variablecall.c"
 
 #define MAX_JOBS 40
 #define PATH_MAX 20

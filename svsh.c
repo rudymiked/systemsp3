@@ -1,10 +1,9 @@
 // Shell
 // Mike Rudy
 // CS 485
-
 #include "svsh.h"
 //#include "sCalls.c"
-
+#define MAX_BUF_SIZE 256
 char *prompt;
 int job_number;
 struct job run_s[MAX_JOBS];
@@ -149,6 +148,13 @@ int call(int opr, char *arg1, char *arg2, char *arg3, char **arg4, int index) {
 }
 
 int main() {
+  
+  char path[MAX_BUF_SIZE] = "$PATH";
+  char pathdef[MAX_BUF_SIZE] = "/bin:/usr/bin";
+  assignVarName(path, pathdef);
+  char show[MAX_BUF_SIZE] = "$ShowTokens";
+  char showdef[MAX_BUF_SIZE] = "0";
+  assignVarName(show, showdef);
   
   printPrompt();
   

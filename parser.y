@@ -8,11 +8,12 @@
 
 /*#include "svsh.h"*/
 #include "svsh.c"
-#include "variablecall.c"
 
 // Maximum amount of arguments is 20
-#define ShowTokens 0
+
 #define MAXARGS 20
+#define ShowTokens 0
+#define MAX_BUF_SIZE 256
 
 char *argument[MAXARGS];
 
@@ -21,6 +22,9 @@ int list_index = 0;
 
 extern int call(int opr, char * arg1, char * arg2, char *arg3, char *arg4[MAXARGS], int index);
 int yylex(void);
+char def[MAX_BUF_SIZE] = "";
+char ShowToken[MAX_BUF_SIZE]= "";
+
 
 %}
 %union {
@@ -49,8 +53,10 @@ int yylex(void);
 
 
 shell:
-	   	stmt			{ /* Do nothing */ }	
-	      | cmd stmt		{ /* Do nothing */ }
+	   	stmt			{ getVar(ShowToken, "$ShowTokens", MAX_BUF_SIZE); }
+					  
+						
+	      | cmd stmt		{ getVar(ShowToken, "$ShowTokens", MAX_BUF_SIZE); }
 	      ;
 
 
@@ -121,6 +127,20 @@ stmt:
 
 		
 		                        call(CD, $2, NULL, NULL, argument, list_index);		}
+	| CD VARIABLE		{
+
+					if(ShowTokens)
+                                        {
+                                           printf("Token type = Keyword\t Token = cd\t Usage = cd\n");
+                                           printf("Token type = Word\t Token = %s\t Usage = directory_name\n", $2);
+                                        }
+					
+					getVar($2, def, MAX_BUF_SIZE);
+					printf("def = %s\t deflen = %i\n", def, MAX_BUF_SIZE);
+					call(CD, def, NULL, NULL, argument, list_index);
+					
+				}
+
 	| BYE			{	exit(0);				}
 	| WORD			{	printf("\nInvalid input\n");		}
 	| RUN arglistcmd	{	call(RUN, NULL, NULL, NULL, argument, list_index); list_index = 0;}
@@ -134,8 +154,7 @@ arglistcmd:			/*Recursive call of arglistcmd that allows for the build of the ar
 	|WORD arglistcmd       	{argument[list_index] = $1; list_index++; argument[list_index] = $2; list_index++;};
 %%
 
-void yyerror(char * s)
+void yyerror(char *s)
 {
-	printf("%s\n", s);
+	return;
 }
-
